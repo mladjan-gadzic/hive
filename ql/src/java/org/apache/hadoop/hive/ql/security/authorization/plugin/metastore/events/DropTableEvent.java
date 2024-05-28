@@ -62,7 +62,11 @@ public class DropTableEvent extends HiveMetaStoreAuthorizableEvent {
     List<HivePrivilegeObject> ret   = new ArrayList<>();
     PreDropTableEvent         event = (PreDropTableEvent) preEventContext;
     Table                     table = event.getTable();
+    String uri = getSdLocation(table.getSd());
     ret.add(getHivePrivilegeObject(table));
+    if (StringUtils.isNotEmpty(uri)) {
+      ret.add(new HivePrivilegeObject(HivePrivilegeObject.HivePrivilegeObjectType.DFS_URI, null, uri));
+    }
 
     COMMAND_STR = buildCommandString(COMMAND_STR, table);
 
