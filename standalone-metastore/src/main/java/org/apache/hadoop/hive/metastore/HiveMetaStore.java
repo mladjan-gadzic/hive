@@ -1578,6 +1578,15 @@ public class HiveMetaStore extends ThriftHiveMetastore {
           success = ms.commitTransaction();
         }
       } finally {
+        if (success) {
+          try {
+            LOG.info("MLADJAN Thread sleeping...");
+            Thread.sleep(3000L);
+          } catch (InterruptedException e) {
+            LOG.error("MLADJAN Interrupted while sleeping", e);
+          }
+        }
+
         if (!success) {
           ms.rollbackTransaction();
         } else if (deleteData) {
