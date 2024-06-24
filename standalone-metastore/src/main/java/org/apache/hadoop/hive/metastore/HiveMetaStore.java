@@ -1581,7 +1581,8 @@ public class HiveMetaStore extends ThriftHiveMetastore {
         if (success) {
           try {
             LOG.info("MLADJAN Thread sleeping...");
-            Thread.sleep(3000L);
+            Thread.sleep(10000L);
+            LOG.info("MLADJAN Thread waking up...");
           } catch (InterruptedException e) {
             LOG.error("MLADJAN Interrupted while sleeping", e);
           }
